@@ -1,0 +1,132 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define FOR(i,a,b) for(int i=a;i<=b;i++)
+#define DEC(i,a,b) for(int i=a;i>=b;i--)
+#define REP(i,n) FOR(i,1,n)
+#define REPN(i,n) FOR(i,0,n-1)
+#define VEC(i,a) for(auto i:a)
+#define pb push_back
+#define is insert
+#define vi vector<int>
+#define pi pair<int,int>
+#define vii vector<pi>
+#define fi first
+#define se second
+#define si set<int>
+#define ll long long int
+#define oo 1e15
+#define micro 1e-9
+#define mod 998244353
+#define mxn 500005
+#define mp make_pair
+#define upbo(a,k) upper_bound(a.begin(),a.end(),k)-a.begin()
+#define lobo(a,k) lower_bound(a.begin(),a.end(),k)-a.begin()
+#define YES() {cout<<"YES"<<"\n";}
+#define NO() {cout<<"NO"<<"\n";}
+#define all(a) a.begin(),a.end()
+#define endl "\n"
+#define _max(a,b) a=max(a,b);
+#define _min(a,b) a=min(a,b);
+#define _add(a,b,mod) a=(a+b)%mod;
+#define _multi(a,b,mod) a=(a*b)%mod;
+ll a[mxn],c[mxn];
+ll id1[mxn*2],id2[mxn*2];
+ll f[mxn];
+void create()
+{
+    freopen("Codeforces.inp","w",stdout);
+    srand(time(NULL));
+    cout<<6<<" "<<1<<endl;
+    REP(i,6) cout<<rand()%20+1<<" ";
+    cout<<endl;
+    cout<<2<<" "<<5;
+}
+void pretest()
+{
+
+}
+ll lcm(ll x,ll y)
+{
+    ll x1=x,y1=y;
+    if(x>y) swap(x,y);
+    while(x)
+    {
+        ll tmp=y%x;
+        y=x;
+        x=tmp;
+    }
+    return (x1*y1)/y;
+}
+void Solve()
+{
+    ll n,m,k;
+    cin>>n>>m>>k;
+    REP(i,n)
+    {
+        cin>>a[i];
+        id1[a[i]]=i;
+    }
+    REP(i,m)
+    {
+        cin>>c[i];
+        f[i-1]=-1;
+        id2[c[i]]=i;
+    }
+    FOR(i,0,m)
+    {
+        if(f[(n*i)%m]==-1) f[(n*i)%m]=n*i;
+    }
+    //FOR(i,0,m-1) cout<<i<<" "<<f[i]<<endl;
+    vector<ll> cas;
+    REP(i,m)
+    {
+        if(id1[c[i]]==0) continue;
+        ll mod1=id1[c[i]];
+        ll mod2=id2[c[i]];
+        ll tmp=mod2-mod1;
+        if(mod1>mod2)
+        {
+            ll id=(mod1-mod2)/m;
+            tmp=mod1-mod2+m*(id+1);
+        }
+        if(f[tmp%m]==-1) continue;
+        //cout<<c[i]<<" "<<f[tmp%m]+mod1<<endl;
+        cas.pb(f[tmp%m]+mod1);
+    }
+    sort(all(cas));
+    /*if(cas.empty()||k<cas[0])
+    {
+        cout<<k;
+        return ;
+    }
+    else k-=cas[0]-1;
+    ll num=lcm(n,m)-(ll)cas.size();
+    ll ans=cas[0]-1;
+    ll len=(k-1)/num;
+    ans+=len*lcm(n,m);
+    k-=len*num;
+    cas.pb(cas[0]+lcm(n,m));
+    FOR(i,1,(int)cas.size()-1)
+    {
+        if(cas[i]-cas[i-1]-1<k)
+        {
+            k-=(cas[i]-cas[i-1]-1);
+            ans+=cas[i]-cas[i-1];
+        }
+        else
+        {
+            cout<<ans+k+1;
+            break;
+        }
+    }*/
+}
+int main()
+{
+    //ios_base::sync_with_stdio(0); cin.tie(0);
+    //create();
+    //pretest();
+    freopen("Codeforces.inp","r",stdin);
+    freopen("Codeforces.out","w",stdout);
+    Solve();
+    return 0;
+}
